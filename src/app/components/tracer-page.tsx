@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import { Loader2, AlertTriangle, MapPin } from 'lucide-react';
+import { Loader2, AlertTriangle, MapPin, ShieldCheck } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -64,12 +64,12 @@ export default function TracerPage() {
             name="phoneNumber"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Phone Number</FormLabel>
+                <FormLabel className="text-lg">Phone Number</FormLabel>
                 <FormControl>
                   <Input placeholder="+1 555-123-4567" {...field} />
                 </FormControl>
                 <FormDescription>
-                  Enter the phone number you want to trace, including country code.
+                  Enter the phone number you want to trace, including the country code.
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -80,7 +80,7 @@ export default function TracerPage() {
             control={form.control}
             name="agree"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4 shadow-sm">
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border border-input p-4 shadow-sm bg-background/50">
                  <FormControl>
                   <Checkbox
                     checked={field.value}
@@ -101,15 +101,15 @@ export default function TracerPage() {
             )}
           />
           
-          <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
+          <Button type="submit" disabled={isLoading} className="w-full sm:w-auto" size="lg">
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
                 Tracing...
               </>
             ) : (
               <>
-                <MapPin className="mr-2 h-4 w-4" />
+                <MapPin className="mr-2 h-5 w-5" />
                 Trace Location
               </>
             )}
@@ -127,17 +127,17 @@ export default function TracerPage() {
 
       {result && (
         <div className="space-y-4 pt-4">
-          <h3 className="text-2xl font-semibold tracking-tight">Trace Result</h3>
-          <div className="aspect-[16/9] w-full rounded-lg overflow-hidden border-2 border-primary shadow-lg">
+          <h3 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">Trace Result</h3>
+          <div className="aspect-[16/9] w-full rounded-lg overflow-hidden border-2 border-primary/50 shadow-lg">
             <MapDisplay 
               latitude={result.latitude}
               longitude={result.longitude}
               accuracyRadiusMeters={result.accuracyRadiusMeters}
             />
           </div>
-          <Alert>
-            <AlertTriangle className="h-4 w-4" />
-            <AlertTitle>Disclaimer</AlertTitle>
+          <Alert variant="default" className="bg-card/50">
+            <ShieldCheck className="h-4 w-4 text-primary" />
+            <AlertTitle className="text-primary">Disclaimer</AlertTitle>
             <AlertDescription>{result.disclaimer}</AlertDescription>
           </Alert>
         </div>
