@@ -1,7 +1,8 @@
 'use client';
 
-import { APIProvider, Map, AdvancedMarker, Circle } from '@vis.gl/react-google-maps';
+import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 import { getGoogleMapsApiKey } from '@/lib/config';
+import { Circle } from '@/app/components/circle';
 
 interface MapDisplayProps {
   latitude: number;
